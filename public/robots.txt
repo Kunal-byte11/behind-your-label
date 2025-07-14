@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://behindyourlabel.netlify.app/sitemap.xml
+
+# AdSense crawler
+User-agent: Mediapartners-Google
+Allow: /
+
+# Google crawler
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
