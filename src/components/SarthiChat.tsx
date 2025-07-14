@@ -4,6 +4,8 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { geminiService } from '../services/geminiService';
 import { Ingredient } from '../types/ingredient';
+import { UserPreferences } from '../types/preferences';
+import { PreferencesService } from '../services/preferencesService';
 
 interface Message {
   id: string;
@@ -15,11 +17,13 @@ interface Message {
 interface SarthiChatProps {
   ingredients?: Ingredient[];
   userPreferences?: string[];
+  preferences?: UserPreferences;
 }
 
 export const SarthiChat: React.FC<SarthiChatProps> = ({
   ingredients = [],
-  userPreferences = []
+  userPreferences = [],
+  preferences
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -59,7 +63,8 @@ export const SarthiChat: React.FC<SarthiChatProps> = ({
     try {
       const response = await geminiService.chatWithSarthi(inputMessage, {
         ingredients,
-        userPreferences
+        userPreferences,
+        preferences: preferences || PreferencesService.loadPreferences()
       });
 
       const botMessage: Message = {

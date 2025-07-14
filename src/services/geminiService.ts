@@ -1,5 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Ingredient, RiskLevel, AnalysisResult } from '../types/ingredient';
+import { UserPreferences } from '../types/preferences';
 import { budgetTracker } from './budgetTracker';
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || '');
@@ -209,7 +210,7 @@ export class GeminiService {
   // Sarthi AI Chat Assistant
   async chatWithSarthi(
     message: string, 
-    context: { ingredients?: Ingredient[], userPreferences?: string[] } = {}
+    context: { ingredients?: Ingredient[], userPreferences?: string[], preferences?: UserPreferences } = {}
   ): Promise<string> {
     // Check budget first
     const budgetCheck = this.checkBudget();
@@ -225,6 +226,15 @@ export class GeminiService {
       const preferences = context.userPreferences?.length 
         ? `User preferences: ${context.userPreferences.join(', ')}`
         : '';
+      
+      const detailedPrefs = context.preferences ? `
+        Dietary restrictions: ${context.preferences.dietaryRestrictions.join(', ')}
+        Health conditions: ${context.preferences.healthConditions.join(', ')}
+        Avoid ingredients: ${context.preferences.avoidIngredients.join(', ')}
+        Preferred origins: ${context.preferences.preferredOrigins.join(', ')}
+        Age group: ${context.preferences.ageGroup}
+        Strictness: ${context.preferences.strictness}
+      ` : '';
 
       const prompt = `
         You are Sarthi, an AI assistant helping Indian consumers understand food ingredients and make healthier choices.
@@ -232,6 +242,7 @@ export class GeminiService {
         CONTEXT:
         ${contextInfo}
         ${preferences}
+        ${detailedPrefs}
 
         USER QUESTION: ${message}
 

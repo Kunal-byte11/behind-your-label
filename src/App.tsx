@@ -9,13 +9,17 @@ import { IngredientDetailModal } from './components/IngredientDetailModal';
 import { SarthiChat } from './components/SarthiChat';
 import { UsageIndicator } from './components/UsageIndicator';
 import { BudgetExceededModal } from './components/BudgetExceededModal';
+import { PreferencesButton } from './components/PreferencesButton';
+import { FilteredResults } from './components/FilteredResults';
 import { AdPlacement } from './components/AdPlacement';
 import { Footer } from './components/Footer';
 import { Button } from './components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './components/ui/card';
 import { Badge } from './components/ui/badge';
 import { geminiService } from './services/geminiService';
+import { PreferencesService } from './services/preferencesService';
 import { Ingredient, AnalysisResult } from './types/ingredient';
+import { UserPreferences } from './types/preferences';
 
 // Import pages
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
@@ -34,6 +38,10 @@ const MainApp: React.FC = () => {
   const [selectedIngredient, setSelectedIngredient] = useState<Ingredient | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [budgetError, setBudgetError] = useState<string | null>(null);
+  const [userPreferences, setUserPreferences] = useState<UserPreferences>(
+    PreferencesService.loadPreferences()
+  );
+  const [showFilteredView, setShowFilteredView] = useState(false);
 
   const handleImageAnalysis = async (imageFile: File) => {
     setIsLoading(true);
@@ -98,6 +106,14 @@ const MainApp: React.FC = () => {
 
         {/* Header */}
         <div className="text-center mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex-1" />
+            <PreferencesButton 
+              onPreferencesChange={setUserPreferences}
+              className="relative"
+            />
+          </div>
+          
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 font-heading">
             Behind Your Label
           </h1>
@@ -202,6 +218,17 @@ const MainApp: React.FC = () => {
   const renderResultsScreen = () => {
     if (!analysisResult) return null;
 
+    // Generate preference-based recommendations
+    const preferenceRecommendations = PreferencesService.generateRecommendations(
+      analysisResult.ingredients,
+      userPreferences
+    );
+
+    // Combine original recommendations with preference-based ones
+    const allRecommendations = [
+      ...analysisResult.recommendations,
+      ...preferenceRecommendations
+    ];
     return (
       <div className="min-h-screen bg-[#F9F9F9]">
         {/* Header */}
@@ -274,6 +301,34 @@ const MainApp: React.FC = () => {
 
             {/* Ingredients List */}
             <div className="lg:col-span-3">
+              {/* View Toggle */}
+              <div className="flex gap-2 mb-4">
+                <Button
+                  variant={!showFilteredView ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setShowFilteredView(false)}
+                  className="flex items-center gap-2"
+                >
+                  All Ingredients
+                </Button>
+                <Button
+                  variant={showFilteredView ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setShowFilteredView(true)}
+                  className="flex items-center gap-2"
+                >
+                  <Filter className="w-4 h-4" />
+                  Filtered View
+                </Button>
+              </div>
+
+              {showFilteredView ? (
+                <FilteredResults
+                  ingredients={analysisResult.ingredients}
+                  preferences={userPreferences}
+                  onIngredientClick={handleIngredientClick}
+                />
+              ) : (
               <Card>
                 <CardHeader>
                   <CardTitle className="font-heading">Ingredients Analysis</CardTitle>
@@ -298,6 +353,7 @@ const MainApp: React.FC = () => {
                   </div>
                 </CardContent>
               </Card>
+              )}
             </div>
           </div>
         </div>
@@ -317,7 +373,8 @@ const MainApp: React.FC = () => {
       
       <SarthiChat
         ingredients={analysisResult?.ingredients}
-        userPreferences={[]}
+       userPreferences={Object.values(userPreferences).flat()}
+        preferences={userPreferences}
       />
 
       <UsageIndicator />
