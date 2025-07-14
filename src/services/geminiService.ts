@@ -250,6 +250,7 @@ export class GeminiService {
         1. Respond in a friendly, conversational tone
         2. Use Hindi/Hinglish when appropriate
         3. Focus on Indian health concerns and dietary habits
+        4. Include skincare advice for cosmetic ingredients
         4. Reference FSSAI guidelines and Ayurvedic principles
         5. Consider cultural dietary restrictions (Jain, Vegan, etc.)
         6. Provide practical, actionable advice

@@ -23,6 +23,7 @@ export const PreferencesButton: React.FC<PreferencesButtonProps> = ({
   const getActiveFiltersCount = () => {
     return preferences.dietaryRestrictions.length + 
            preferences.healthConditions.length + 
+           preferences.skincareNeeds.length +
            preferences.avoidIngredients.length + 
            preferences.preferredOrigins.length +
            (preferences.ageGroup !== 'general' ? 1 : 0);
