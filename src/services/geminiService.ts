@@ -2,6 +2,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Ingredient, RiskLevel, AnalysisResult } from '../types/ingredient';
 import { UserPreferences } from '../types/preferences';
 import { budgetTracker } from './budgetTracker';
+import { withTimeout } from '../utils/timeout';
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || '');
 
@@ -314,3 +315,19 @@ export class GeminiService {
 }
 
 export const geminiService = new GeminiService();
+
+export const analyzeProductLabel = async (imageFile: File): Promise<AnalysisResult> => {
+  try {
+    const result = await withTimeout(
+      // Your existing analysis logic here
+      geminiService.analyzeProductLabel(imageFile),
+      30000 // 30 second timeout
+    );
+    return result;
+  } catch (error) {
+    if (error instanceof TimeoutError) {
+      throw new Error('Analysis is taking too long. Please try again with a clearer image or shorter ingredient list.');
+    }
+    throw error;
+  }
+};

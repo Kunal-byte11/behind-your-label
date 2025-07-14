@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Camera, FileText, ArrowLeft, Loader2 } from 'lucide-react';
+import { Camera, FileText, ArrowLeft, Loader2, Filter } from 'lucide-react';
 import { ImageUpload } from './components/ImageUpload';
 import { IngredientInput } from './components/IngredientInput';
 import { IngredientCard } from './components/IngredientCard';
@@ -54,10 +54,14 @@ const MainApp: React.FC = () => {
     } catch (error) {
       console.error('Analysis failed:', error);
       
-      if (error instanceof Error && (error.message.includes('💰') || error.message.includes('📊'))) {
-        setBudgetError(error.message);
-      } else {
-        alert('Failed to analyze image. Please try again.');
+      if (error instanceof Error) {
+        if (error.message.includes('💰') || error.message.includes('📊')) {
+          setBudgetError(error.message);
+        } else if (error.message.includes('taking too long')) {
+          alert('Analysis timed out. Please try again with a clearer image.');
+        } else {
+          alert('Failed to analyze image. Please try again.');
+        }
       }
     } finally {
       setIsLoading(false);
