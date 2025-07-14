@@ -148,6 +148,33 @@
   body {
     overflow-x: hidden;
   }
+  
+  /* Hide scrollbars on mobile for cleaner look */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Better modal sizing on mobile */
+  .modal-content {
+    margin: 1rem;
+    max-height: calc(100vh - 2rem);
+  }
+  
+  /* Improved touch targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better form inputs on mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
 }
 
 /* Tablet adjustments */
@@ -156,6 +183,12 @@
     margin: 0.5rem 0;
     padding: 0.5rem;
   }
+  
+  /* Better tablet spacing */
+  .container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 
 /* Ensure proper mobile viewport */
@@ -163,5 +196,15 @@
   /* iOS Safari specific fixes */
   .min-h-screen {
     min-height: -webkit-fill-available;
+  }
+  
+  /* Fix iOS Safari bottom padding */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Fix iOS Safari viewport units */
+  .h-screen-safe {
+    height: -webkit-fill-available;
   }
 }

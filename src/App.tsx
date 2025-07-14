@@ -312,7 +312,7 @@ const MainApp: React.FC = () => {
             {/* Ingredients List */}
             <div className="lg:col-span-3">
               {/* View Toggle */}
-              <div className="flex gap-2 mb-4 bg-gray-100 p-1 rounded-lg relative overflow-hidden">
+              <div className="flex gap-1 sm:gap-2 mb-4 bg-gray-100 p-1 rounded-lg relative overflow-hidden">
                 {/* Animated background for view toggle */}
                 <div 
                   className={`absolute top-1 bottom-1 bg-white rounded-md shadow-sm transition-all duration-300 ease-in-out ${
@@ -323,22 +323,23 @@ const MainApp: React.FC = () => {
                   variant={!showFilteredView ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setShowFilteredView(false)}
-                  className={`flex items-center gap-2 relative z-10 transition-all duration-300 flex-1 justify-center ${
+                  className={`flex items-center gap-1 sm:gap-2 relative z-10 transition-all duration-300 flex-1 justify-center text-xs sm:text-sm px-2 sm:px-3 py-2 min-h-[44px] ${
                     !showFilteredView ? 'text-gray-900 shadow-none bg-transparent hover:bg-transparent' : 'text-gray-600 bg-transparent border-0 hover:text-gray-900'
                   }`}
                 >
-                  All Ingredients
+                  <span>All Ingredients</span>
                 </Button>
                 <Button
                   variant={showFilteredView ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setShowFilteredView(true)}
-                  className={`flex items-center gap-2 relative z-10 transition-all duration-300 flex-1 justify-center ${
+                  className={`flex items-center gap-1 sm:gap-2 relative z-10 transition-all duration-300 flex-1 justify-center text-xs sm:text-sm px-2 sm:px-3 py-2 min-h-[44px] ${
                     showFilteredView ? 'text-gray-900 shadow-none bg-transparent hover:bg-transparent' : 'text-gray-600 bg-transparent border-0 hover:text-gray-900'
                   }`}
                 >
                   <Filter className={`w-4 h-4 transition-transform duration-200 ${showFilteredView ? 'scale-110' : ''}`} />
-                  Filtered View
+                  <span className="hidden sm:inline">Filtered View</span>
+                  <span className="sm:hidden">Filtered</span>
                 </Button>
               </div>
 
