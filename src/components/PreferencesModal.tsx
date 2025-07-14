@@ -31,6 +31,7 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
   const categories = [
     { id: 'dietary', label: 'Dietary', icon: '🥗' },
     { id: 'health', label: 'Health', icon: '🩺' },
+    { id: 'skincare', label: 'Skincare', icon: '🧴' },
     { id: 'lifestyle', label: 'Lifestyle', icon: '🌿' },
     { id: 'origin', label: 'Origin', icon: '🌍' },
     { id: 'age', label: 'Age Group', icon: '👥' }
@@ -53,6 +54,13 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
             newPrefs.healthConditions = prev.healthConditions.filter(id => id !== filterId);
           } else {
             newPrefs.healthConditions = [...prev.healthConditions, filterId];
+          }
+          break;
+        case 'skincare':
+          if (prev.skincareNeeds.includes(filterId)) {
+            newPrefs.skincareNeeds = prev.skincareNeeds.filter(id => id !== filterId);
+          } else {
+            newPrefs.skincareNeeds = [...prev.skincareNeeds, filterId];
           }
           break;
         case 'lifestyle':
@@ -84,6 +92,8 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
         return preferences.dietaryRestrictions.includes(filterId);
       case 'health':
         return preferences.healthConditions.includes(filterId);
+      case 'skincare':
+        return preferences.skincareNeeds.includes(filterId);
       case 'lifestyle':
         return preferences.avoidIngredients.includes(filterId);
       case 'origin':
@@ -109,6 +119,7 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
   const getActiveFiltersCount = () => {
     return preferences.dietaryRestrictions.length + 
            preferences.healthConditions.length + 
+           preferences.skincareNeeds.length +
            preferences.avoidIngredients.length + 
            preferences.preferredOrigins.length +
            (preferences.ageGroup !== 'general' ? 1 : 0);

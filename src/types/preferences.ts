@@ -1,6 +1,7 @@
 export interface UserPreferences {
   dietaryRestrictions: string[];
   healthConditions: string[];
+  skincareNeeds: string[];
   avoidIngredients: string[];
   preferredOrigins: string[];
   ageGroup: string;
@@ -186,12 +187,113 @@ export const FILTER_OPTIONS: FilterOption[] = [
     description: 'Easy to digest, low sodium',
     category: 'age',
     icon: '👴'
+  },
+
+  // Skincare Preferences
+  {
+    id: 'sensitive-skin',
+    label: 'Sensitive Skin',
+    description: 'Gentle, hypoallergenic ingredients',
+    category: 'skincare',
+    icon: '🌸'
+  },
+  {
+    id: 'acne-prone',
+    label: 'Acne-Prone Skin',
+    description: 'Non-comedogenic, oil-free',
+    category: 'skincare',
+    icon: '🎯'
+  },
+  {
+    id: 'dry-skin',
+    label: 'Dry Skin',
+    description: 'Hydrating, moisturizing ingredients',
+    category: 'skincare',
+    icon: '💧'
+  },
+  {
+    id: 'oily-skin',
+    label: 'Oily Skin',
+    description: 'Oil-controlling, mattifying',
+    category: 'skincare',
+    icon: '✨'
+  },
+  {
+    id: 'anti-aging',
+    label: 'Anti-Aging Focus',
+    description: 'Collagen boosting, wrinkle reduction',
+    category: 'skincare',
+    icon: '⏰'
+  },
+  {
+    id: 'pigmentation',
+    label: 'Pigmentation Concerns',
+    description: 'Brightening, even skin tone',
+    category: 'skincare',
+    icon: '🌟'
+  },
+  {
+    id: 'rosacea-safe',
+    label: 'Rosacea-Safe',
+    description: 'Anti-inflammatory, gentle',
+    category: 'skincare',
+    icon: '🌹'
+  },
+  {
+    id: 'eczema-safe',
+    label: 'Eczema-Safe',
+    description: 'Barrier-repairing, soothing',
+    category: 'skincare',
+    icon: '🛡️'
+  },
+  {
+    id: 'sulfate-free',
+    label: 'Sulfate-Free',
+    description: 'No harsh sulfates (SLS, SLES)',
+    category: 'skincare',
+    icon: '🚫'
+  },
+  {
+    id: 'fragrance-free',
+    label: 'Fragrance-Free',
+    description: 'No synthetic fragrances',
+    category: 'skincare',
+    icon: '🌿'
+  },
+  {
+    id: 'alcohol-free',
+    label: 'Alcohol-Free',
+    description: 'No drying alcohols',
+    category: 'skincare',
+    icon: '💧'
+  },
+  {
+    id: 'natural-skincare',
+    label: 'Natural Skincare',
+    description: 'Plant-based, minimal processing',
+    category: 'skincare',
+    icon: '🌱'
+  },
+  {
+    id: 'cruelty-free',
+    label: 'Cruelty-Free',
+    description: 'Not tested on animals',
+    category: 'skincare',
+    icon: '🐰'
+  },
+  {
+    id: 'reef-safe',
+    label: 'Reef-Safe',
+    description: 'Ocean-friendly sunscreen',
+    category: 'skincare',
+    icon: '🐠'
   }
 ];
 
 export const DEFAULT_PREFERENCES: UserPreferences = {
   dietaryRestrictions: [],
   healthConditions: [],
+  skincareNeeds: [],
   avoidIngredients: [],
   preferredOrigins: [],
   ageGroup: 'general',

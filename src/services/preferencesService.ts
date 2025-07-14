@@ -90,6 +90,48 @@ export class PreferencesService {
       reasons.push('High sodium - not suitable for hypertension');
     }
 
+    // Check skincare needs
+    if (preferences.skincareNeeds.includes('sensitive-skin') && 
+        (ingredient.name.toLowerCase().includes('fragrance') || 
+         ingredient.name.toLowerCase().includes('alcohol') ||
+         ingredient.name.toLowerCase().includes('sulfate'))) {
+      allowed = false;
+      reasons.push('May irritate sensitive skin');
+    }
+
+    if (preferences.skincareNeeds.includes('acne-prone') && 
+        (ingredient.name.toLowerCase().includes('coconut oil') ||
+         ingredient.name.toLowerCase().includes('cocoa butter') ||
+         ingredient.name.toLowerCase().includes('isopropyl myristate'))) {
+      allowed = false;
+      reasons.push('May clog pores - not suitable for acne-prone skin');
+    }
+
+    if (preferences.skincareNeeds.includes('sulfate-free') && 
+        (ingredient.name.toLowerCase().includes('sodium lauryl sulfate') ||
+         ingredient.name.toLowerCase().includes('sodium laureth sulfate') ||
+         ingredient.name.toLowerCase().includes('sls') ||
+         ingredient.name.toLowerCase().includes('sles'))) {
+      allowed = false;
+      reasons.push('Contains sulfates');
+    }
+
+    if (preferences.skincareNeeds.includes('fragrance-free') && 
+        (ingredient.name.toLowerCase().includes('fragrance') ||
+         ingredient.name.toLowerCase().includes('parfum') ||
+         ingredient.name.toLowerCase().includes('essential oil'))) {
+      allowed = false;
+      reasons.push('Contains fragrance - may cause irritation');
+    }
+
+    if (preferences.skincareNeeds.includes('alcohol-free') && 
+        (ingredient.name.toLowerCase().includes('denatured alcohol') ||
+         ingredient.name.toLowerCase().includes('ethanol') ||
+         ingredient.name.toLowerCase().includes('isopropyl alcohol'))) {
+      allowed = false;
+      reasons.push('Contains drying alcohol');
+    }
+
     // Check lifestyle preferences
     if (preferences.avoidIngredients.includes('paraben-free') && 
         ingredient.name.toLowerCase().includes('paraben')) {
@@ -164,6 +206,22 @@ export class PreferencesService {
       if (highSugar.length > 0) {
         recommendations.push('🩺 High sugar content - monitor blood glucose levels');
       }
+    }
+
+    if (preferences.skincareNeeds.includes('sensitive-skin')) {
+      recommendations.push('🌸 Look for "hypoallergenic" and "dermatologist-tested" labels');
+    }
+
+    if (preferences.skincareNeeds.includes('acne-prone')) {
+      recommendations.push('🎯 Choose "non-comedogenic" products to prevent clogged pores');
+    }
+
+    if (preferences.skincareNeeds.includes('dry-skin')) {
+      recommendations.push('💧 Look for hyaluronic acid, ceramides, and glycerin for hydration');
+    }
+
+    if (preferences.skincareNeeds.includes('anti-aging')) {
+      recommendations.push('⏰ Consider products with retinol, vitamin C, and peptides');
     }
 
     if (preferences.avoidIngredients.includes('paraben-free')) {
