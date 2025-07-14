@@ -40,7 +40,7 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
   return (
     <div className="space-y-4">
       {/* Filter Summary */}
-      <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200">
+      <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 animate-in slide-in-from-top-4 duration-500">
         <CardContent className="p-4">
           <div className="flex items-center gap-2 mb-2">
             <Filter className="w-5 h-5 text-blue-600" />
@@ -51,13 +51,13 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
           
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-4 h-4 text-green-500" />
+              <CheckCircle className="w-4 h-4 text-green-500 animate-pulse" />
               <span className="text-green-700 font-body">
                 {allowedIngredients.length} ingredients match your preferences
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4 h-4 text-orange-500" />
+              <AlertTriangle className="w-4 h-4 text-orange-500 animate-pulse" />
               <span className="text-orange-700 font-body">
                 {flaggedIngredients.length} ingredients flagged
               </span>
@@ -68,7 +68,7 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
 
       {/* Flagged Ingredients */}
       {flaggedIngredients.length > 0 && (
-        <Card className="border-orange-200 bg-orange-50">
+        <Card className="border-orange-200 bg-orange-50 animate-in slide-in-from-left-4 duration-700">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-orange-800 font-heading">
               <AlertTriangle className="w-5 h-5" />
@@ -80,7 +80,8 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
               {flaggedIngredients.map((ingredient, index) => (
                 <div
                   key={index}
-                  className="bg-white p-3 rounded-lg border border-orange-200 cursor-pointer hover:shadow-sm transition-shadow"
+                  className="bg-white p-3 rounded-lg border border-orange-200 cursor-pointer hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 animate-in fade-in-50 slide-in-from-bottom-2"
+                  style={{ animationDelay: `${index * 100}ms` }}
                   onClick={() => onIngredientClick(ingredient)}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -98,7 +99,8 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
                           <Badge
                             key={idx}
                             variant="outline"
-                            className="text-xs bg-orange-100 text-orange-700 border-orange-300"
+                            className="text-xs bg-orange-100 text-orange-700 border-orange-300 animate-in zoom-in-50 duration-300"
+                            style={{ animationDelay: `${(index * 100) + (idx * 50)}ms` }}
                           >
                             {reason}
                           </Badge>
@@ -122,7 +124,7 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
 
       {/* Allowed Ingredients */}
       {allowedIngredients.length > 0 && (
-        <Card className="border-green-200 bg-green-50">
+        <Card className="border-green-200 bg-green-50 animate-in slide-in-from-right-4 duration-700">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-green-800 font-heading">
               <CheckCircle className="w-5 h-5" />
@@ -134,7 +136,8 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
               {allowedIngredients.map((ingredient, index) => (
                 <div
                   key={index}
-                  className="bg-white p-3 rounded-lg border border-green-200 cursor-pointer hover:shadow-sm transition-shadow"
+                  className="bg-white p-3 rounded-lg border border-green-200 cursor-pointer hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 animate-in fade-in-50 slide-in-from-bottom-2"
+                  style={{ animationDelay: `${index * 100}ms` }}
                   onClick={() => onIngredientClick(ingredient)}
                 >
                   <div className="flex items-start justify-between gap-2">

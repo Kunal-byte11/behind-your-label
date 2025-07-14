@@ -123,21 +123,31 @@ const MainApp: React.FC = () => {
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex bg-white rounded-lg p-1 mb-6 shadow-sm">
+        <div className="flex bg-white rounded-lg p-1 mb-6 shadow-sm relative overflow-hidden">
+          {/* Animated background slider */}
+          <div 
+            className={`absolute top-1 bottom-1 bg-blue-500 rounded-md transition-all duration-300 ease-in-out ${
+              inputMode === 'image' ? 'left-1 right-1/2 mr-0.5' : 'right-1 left-1/2 ml-0.5'
+            }`}
+          />
           <Button
             variant={inputMode === 'image' ? 'default' : 'ghost'}
             onClick={() => setInputMode('image')}
-            className="flex-1 flex items-center justify-center gap-2 text-sm py-3 min-h-[48px]"
+            className={`flex-1 flex items-center justify-center gap-2 text-sm py-3 min-h-[48px] relative z-10 transition-all duration-300 ${
+              inputMode === 'image' ? 'text-white' : 'text-gray-700 hover:text-gray-900'
+            }`}
           >
-            <Camera className="w-4 h-4" />
+            <Camera className={`w-4 h-4 transition-transform duration-200 ${inputMode === 'image' ? 'scale-110' : ''}`} />
             <span>Scan Label</span>
           </Button>
           <Button
             variant={inputMode === 'text' ? 'default' : 'ghost'}
             onClick={() => setInputMode('text')}
-            className="flex-1 flex items-center justify-center gap-2 text-sm py-3 min-h-[48px]"
+            className={`flex-1 flex items-center justify-center gap-2 text-sm py-3 min-h-[48px] relative z-10 transition-all duration-300 ${
+              inputMode === 'text' ? 'text-white' : 'text-gray-700 hover:text-gray-900'
+            }`}
           >
-            <FileText className="w-4 h-4" />
+            <FileText className={`w-4 h-4 transition-transform duration-200 ${inputMode === 'text' ? 'scale-110' : ''}`} />
             <span>Type Ingredients</span>
           </Button>
         </div>
@@ -302,12 +312,20 @@ const MainApp: React.FC = () => {
             {/* Ingredients List */}
             <div className="lg:col-span-3">
               {/* View Toggle */}
-              <div className="flex gap-2 mb-4">
+              <div className="flex gap-2 mb-4 bg-gray-100 p-1 rounded-lg relative overflow-hidden">
+                {/* Animated background for view toggle */}
+                <div 
+                  className={`absolute top-1 bottom-1 bg-white rounded-md shadow-sm transition-all duration-300 ease-in-out ${
+                    !showFilteredView ? 'left-1 right-1/2 mr-0.5' : 'right-1 left-1/2 ml-0.5'
+                  }`}
+                />
                 <Button
                   variant={!showFilteredView ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setShowFilteredView(false)}
-                  className="flex items-center gap-2"
+                  className={`flex items-center gap-2 relative z-10 transition-all duration-300 flex-1 justify-center ${
+                    !showFilteredView ? 'text-gray-900 shadow-none bg-transparent hover:bg-transparent' : 'text-gray-600 bg-transparent border-0 hover:text-gray-900'
+                  }`}
                 >
                   All Ingredients
                 </Button>
@@ -315,9 +333,11 @@ const MainApp: React.FC = () => {
                   variant={showFilteredView ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setShowFilteredView(true)}
-                  className="flex items-center gap-2"
+                  className={`flex items-center gap-2 relative z-10 transition-all duration-300 flex-1 justify-center ${
+                    showFilteredView ? 'text-gray-900 shadow-none bg-transparent hover:bg-transparent' : 'text-gray-600 bg-transparent border-0 hover:text-gray-900'
+                  }`}
                 >
-                  <Filter className="w-4 h-4" />
+                  <Filter className={`w-4 h-4 transition-transform duration-200 ${showFilteredView ? 'scale-110' : ''}`} />
                   Filtered View
                 </Button>
               </div>

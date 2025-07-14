@@ -40,9 +40,9 @@ export const PreferencesButton: React.FC<PreferencesButtonProps> = ({
       <Button
         variant="outline"
         onClick={() => setIsModalOpen(true)}
-        className={`flex items-center gap-2 relative ${className}`}
+        className={`flex items-center gap-2 relative transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-md ${className}`}
       >
-        <Settings className="w-4 h-4" />
+        <Settings className="w-4 h-4 transition-transform duration-300 hover:rotate-90" />
         <span className="hidden sm:inline">Preferences</span>
         <span className="sm:hidden">
           <Filter className="w-4 h-4" />
@@ -51,7 +51,7 @@ export const PreferencesButton: React.FC<PreferencesButtonProps> = ({
         {activeCount > 0 && (
           <Badge 
             variant="secondary" 
-            className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs min-w-[20px] h-5 flex items-center justify-center rounded-full"
+            className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs min-w-[20px] h-5 flex items-center justify-center rounded-full animate-pulse"
           >
             {activeCount}
           </Badge>

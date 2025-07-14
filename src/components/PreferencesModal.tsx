@@ -131,16 +131,16 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
 
         <div className="flex flex-col h-[60vh]">
           {/* Category Tabs */}
-          <div className="flex gap-2 mb-4 overflow-x-auto">
+          <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
             {categories.map((category) => (
               <Button
                 key={category.id}
                 variant={activeCategory === category.id ? 'default' : 'outline'}
                 size="sm"
                 onClick={() => setActiveCategory(category.id)}
-                className="flex items-center gap-1 whitespace-nowrap"
+                className="flex items-center gap-1 whitespace-nowrap transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
               >
-                <span>{category.icon}</span>
+                <span className="transition-transform duration-200">{category.icon}</span>
                 <span className="hidden sm:inline">{category.label}</span>
               </Button>
             ))}
@@ -148,7 +148,7 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
 
           {/* Filters Grid */}
           <div className="flex-1 overflow-y-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-in fade-in-50 duration-500">
               {FILTER_OPTIONS
                 .filter(option => option.category === activeCategory)
                 .map((option) => {
@@ -158,14 +158,14 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
                       key={option.id}
                       className={`cursor-pointer transition-all duration-200 ${
                         isActive 
-                          ? 'border-blue-500 bg-blue-50 shadow-md' 
-                          : 'hover:border-gray-300 hover:shadow-sm'
+                          ? 'border-blue-500 bg-blue-50 shadow-lg ring-2 ring-blue-200' 
+                          : 'hover:border-gray-300 hover:shadow-md hover:bg-gray-50'
                       }`}
                       onClick={() => handleToggleFilter(option.id, option.category)}
                     >
                       <CardContent className="p-4">
                         <div className="flex items-start gap-3">
-                          <div className="text-2xl">{option.icon}</div>
+                          <div className="text-2xl transition-transform duration-200 hover:scale-110">{option.icon}</div>
                           <div className="flex-1">
                             <h3 className="font-medium text-gray-900 font-heading">
                               {option.label}
@@ -175,7 +175,7 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
                             </p>
                           </div>
                           {isActive && (
-                            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center animate-in zoom-in-50 duration-300">
                               <span className="text-white text-xs">✓</span>
                             </div>
                           )}
@@ -188,7 +188,7 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
           </div>
 
           {/* Strictness Level */}
-          <Card className="mt-4">
+          <Card className="mt-4 animate-in slide-in-from-bottom-4 duration-500">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm font-heading">Filter Strictness</CardTitle>
             </CardHeader>
@@ -204,7 +204,7 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
                     variant={preferences.strictness === level.id ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setPreferences(prev => ({ ...prev, strictness: level.id as any }))}
-                    className="flex-1 flex flex-col items-center p-2 h-auto"
+                    className="flex-1 flex flex-col items-center p-2 h-auto transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
                   >
                     <span className="font-medium">{level.label}</span>
                     <span className="text-xs opacity-70">{level.desc}</span>
@@ -216,7 +216,7 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
         </div>
 
         {/* Actions */}
-        <div className="flex justify-between pt-4 border-t">
+        <div className="flex justify-between pt-4 border-t animate-in slide-in-from-bottom-2 duration-700">
           <Button variant="outline" onClick={handleReset} className="flex items-center gap-2">
             <RotateCcw className="w-4 h-4" />
             Reset All
@@ -226,7 +226,7 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button onClick={handleSave} className="flex items-center gap-2">
+            <Button onClick={handleSave} className="flex items-center gap-2 transition-all duration-200 hover:shadow-lg">
               <Save className="w-4 h-4" />
               Save Preferences
             </Button>
