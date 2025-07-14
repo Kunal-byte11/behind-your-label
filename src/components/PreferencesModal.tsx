@@ -127,11 +127,11 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-hidden">
+      <DialogContent className="w-[95vw] max-w-2xl max-h-[90vh] overflow-hidden mx-2">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 font-heading">
+          <DialogTitle className="flex flex-col sm:flex-row items-start sm:items-center gap-2 font-heading text-lg sm:text-xl">
             <Settings className="w-5 h-5 text-blue-500" />
-            Personalize Your Experience
+            <span>Personalize Your Experience</span>
             {getActiveFiltersCount() > 0 && (
               <Badge variant="secondary" className="ml-2">
                 {getActiveFiltersCount()} active
@@ -140,26 +140,26 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex flex-col h-[60vh]">
+        <div className="flex flex-col h-[60vh] sm:h-[65vh]">
           {/* Category Tabs */}
-          <div className="flex gap-2 mb-4 overflow-x-auto pb-2">
+          <div className="flex gap-1 sm:gap-2 mb-4 overflow-x-auto pb-2 scrollbar-hide">
             {categories.map((category) => (
               <Button
                 key={category.id}
                 variant={activeCategory === category.id ? 'default' : 'outline'}
-                size="sm"
+                size="sm" 
                 onClick={() => setActiveCategory(category.id)}
-                className="flex items-center gap-1 whitespace-nowrap transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+                className="flex items-center gap-1 whitespace-nowrap transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 min-w-[80px] sm:min-w-[100px] justify-center text-xs sm:text-sm px-2 sm:px-3 py-2 min-h-[44px]"
               >
                 <span className="transition-transform duration-200">{category.icon}</span>
-                <span className="hidden sm:inline">{category.label}</span>
+                <span className="text-xs sm:text-sm">{category.label}</span>
               </Button>
             ))}
           </div>
 
           {/* Filters Grid */}
           <div className="flex-1 overflow-y-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-in fade-in-50 duration-500">
+            <div className="grid grid-cols-1 gap-3 sm:gap-4 animate-in fade-in-50 duration-500">
               {FILTER_OPTIONS
                 .filter(option => option.category === activeCategory)
                 .map((option) => {
@@ -167,26 +167,26 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
                   return (
                     <Card
                       key={option.id}
-                      className={`cursor-pointer transition-all duration-200 ${
+                      className={`cursor-pointer transition-all duration-200 min-h-[80px] sm:min-h-[90px] ${
                         isActive 
                           ? 'border-blue-500 bg-blue-50 shadow-lg ring-2 ring-blue-200' 
                           : 'hover:border-gray-300 hover:shadow-md hover:bg-gray-50'
                       }`}
                       onClick={() => handleToggleFilter(option.id, option.category)}
                     >
-                      <CardContent className="p-4">
+                      <CardContent className="p-3 sm:p-4">
                         <div className="flex items-start gap-3">
-                          <div className="text-2xl transition-transform duration-200 hover:scale-110">{option.icon}</div>
+                          <div className="text-xl sm:text-2xl transition-transform duration-200 hover:scale-110 flex-shrink-0">{option.icon}</div>
                           <div className="flex-1">
-                            <h3 className="font-medium text-gray-900 font-heading">
+                            <h3 className="font-medium text-gray-900 font-heading text-sm sm:text-base">
                               {option.label}
                             </h3>
-                            <p className="text-sm text-gray-600 font-body">
+                            <p className="text-xs sm:text-sm text-gray-600 font-body mt-1">
                               {option.description}
                             </p>
                           </div>
                           {isActive && (
-                            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center animate-in zoom-in-50 duration-300">
+                            <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center animate-in zoom-in-50 duration-300 flex-shrink-0">
                               <span className="text-white text-xs">✓</span>
                             </div>
                           )}
@@ -199,12 +199,12 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
           </div>
 
           {/* Strictness Level */}
-          <Card className="mt-4 animate-in slide-in-from-bottom-4 duration-500">
+          <Card className="mt-3 sm:mt-4 animate-in slide-in-from-bottom-4 duration-500">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-heading">Filter Strictness</CardTitle>
+              <CardTitle className="text-sm sm:text-base font-heading">Filter Strictness</CardTitle>
             </CardHeader>
-            <CardContent className="pt-0">
-              <div className="flex gap-2">
+            <CardContent className="pt-0 pb-3">
+              <div className="flex gap-1 sm:gap-2">
                 {[
                   { id: 'relaxed', label: 'Relaxed', desc: 'Allow moderate risk' },
                   { id: 'moderate', label: 'Moderate', desc: 'Balanced approach' },
@@ -215,10 +215,10 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
                     variant={preferences.strictness === level.id ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setPreferences(prev => ({ ...prev, strictness: level.id as any }))}
-                    className="flex-1 flex flex-col items-center p-2 h-auto transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+                    className="flex-1 flex flex-col items-center p-2 sm:p-3 h-auto transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95 min-h-[60px] sm:min-h-[70px]"
                   >
-                    <span className="font-medium">{level.label}</span>
-                    <span className="text-xs opacity-70">{level.desc}</span>
+                    <span className="font-medium text-xs sm:text-sm">{level.label}</span>
+                    <span className="text-xs opacity-70 text-center leading-tight mt-1">{level.desc}</span>
                   </Button>
                 ))}
               </div>
@@ -227,17 +227,17 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
         </div>
 
         {/* Actions */}
-        <div className="flex justify-between pt-4 border-t animate-in slide-in-from-bottom-2 duration-700">
-          <Button variant="outline" onClick={handleReset} className="flex items-center gap-2">
+        <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 pt-4 border-t animate-in slide-in-from-bottom-2 duration-700">
+          <Button variant="outline" onClick={handleReset} className="flex items-center justify-center gap-2 min-h-[44px] order-2 sm:order-1">
             <RotateCcw className="w-4 h-4" />
             Reset All
           </Button>
           
-          <div className="flex gap-2">
-            <Button variant="outline" onClick={onClose}>
+          <div className="flex gap-2 order-1 sm:order-2">
+            <Button variant="outline" onClick={onClose} className="flex-1 sm:flex-none min-h-[44px]">
               Cancel
             </Button>
-            <Button onClick={handleSave} className="flex items-center gap-2 transition-all duration-200 hover:shadow-lg">
+            <Button onClick={handleSave} className="flex-1 sm:flex-none flex items-center justify-center gap-2 transition-all duration-200 hover:shadow-lg min-h-[44px]">
               <Save className="w-4 h-4" />
               Save Preferences
             </Button>

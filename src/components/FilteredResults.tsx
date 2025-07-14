@@ -38,18 +38,18 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       {/* Filter Summary */}
       <Card className="bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 animate-in slide-in-from-top-4 duration-500">
-        <CardContent className="p-4">
+        <CardContent className="p-3 sm:p-4">
           <div className="flex items-center gap-2 mb-2">
             <Filter className="w-5 h-5 text-blue-600" />
-            <h3 className="font-semibold text-blue-900 font-heading">
+            <h3 className="font-semibold text-blue-900 font-heading text-sm sm:text-base">
               Personalized Filter Results
             </h3>
           </div>
           
-          <div className="grid grid-cols-2 gap-4 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-green-500 animate-pulse" />
               <span className="text-green-700 font-body">
@@ -70,36 +70,36 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
       {flaggedIngredients.length > 0 && (
         <Card className="border-orange-200 bg-orange-50 animate-in slide-in-from-left-4 duration-700">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-orange-800 font-heading">
+            <CardTitle className="flex items-center gap-2 text-orange-800 font-heading text-base sm:text-lg">
               <AlertTriangle className="w-5 h-5" />
               Ingredients That Don't Match Your Preferences
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-3">
               {flaggedIngredients.map((ingredient, index) => (
                 <div
                   key={index}
-                  className="bg-white p-3 rounded-lg border border-orange-200 cursor-pointer hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 animate-in fade-in-50 slide-in-from-bottom-2"
+                  className="bg-white p-3 sm:p-4 rounded-lg border border-orange-200 cursor-pointer hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 animate-in fade-in-50 slide-in-from-bottom-2 min-h-[80px] active:scale-[0.98]"
                   style={{ animationDelay: `${index * 100}ms` }}
                   onClick={() => onIngredientClick(ingredient)}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900 font-heading">
+                      <h4 className="font-medium text-gray-900 font-heading text-sm sm:text-base">
                         {ingredient.name}
                       </h4>
                       {ingredient.hindiName && (
-                        <p className="text-sm text-gray-600 font-body">
+                        <p className="text-xs sm:text-sm text-gray-600 font-body">
                           {ingredient.hindiName}
                         </p>
                       )}
-                      <div className="mt-2 space-y-1">
+                      <div className="mt-2 flex flex-wrap gap-1">
                         {ingredient.filterReasons.map((reason, idx) => (
                           <Badge
                             key={idx}
                             variant="outline"
-                            className="text-xs bg-orange-100 text-orange-700 border-orange-300 animate-in zoom-in-50 duration-300"
+                            className="text-xs bg-orange-100 text-orange-700 border-orange-300 animate-in zoom-in-50 duration-300 leading-tight"
                             style={{ animationDelay: `${(index * 100) + (idx * 50)}ms` }}
                           >
                             {reason}
@@ -109,7 +109,7 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
                     </div>
                     <Badge
                       variant="outline"
-                      className="bg-orange-100 text-orange-700 border-orange-300"
+                      className="bg-orange-100 text-orange-700 border-orange-300 flex-shrink-0"
                     >
                       <X className="w-3 h-3 mr-1" />
                       Avoid
@@ -126,34 +126,34 @@ export const FilteredResults: React.FC<FilteredResultsProps> = ({
       {allowedIngredients.length > 0 && (
         <Card className="border-green-200 bg-green-50 animate-in slide-in-from-right-4 duration-700">
           <CardHeader className="pb-3">
-            <CardTitle className="flex items-center gap-2 text-green-800 font-heading">
+            <CardTitle className="flex items-center gap-2 text-green-800 font-heading text-base sm:text-lg">
               <CheckCircle className="w-5 h-5" />
               Ingredients That Match Your Preferences
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 gap-2 sm:gap-3">
               {allowedIngredients.map((ingredient, index) => (
                 <div
                   key={index}
-                  className="bg-white p-3 rounded-lg border border-green-200 cursor-pointer hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 animate-in fade-in-50 slide-in-from-bottom-2"
+                  className="bg-white p-3 sm:p-4 rounded-lg border border-green-200 cursor-pointer hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 animate-in fade-in-50 slide-in-from-bottom-2 min-h-[70px] active:scale-[0.98]"
                   style={{ animationDelay: `${index * 100}ms` }}
                   onClick={() => onIngredientClick(ingredient)}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1">
-                      <h4 className="font-medium text-gray-900 font-heading">
+                      <h4 className="font-medium text-gray-900 font-heading text-sm sm:text-base">
                         {ingredient.name}
                       </h4>
                       {ingredient.hindiName && (
-                        <p className="text-sm text-gray-600 font-body">
+                        <p className="text-xs sm:text-sm text-gray-600 font-body">
                           {ingredient.hindiName}
                         </p>
                       )}
                     </div>
                     <Badge
                       variant="outline"
-                      className="bg-green-100 text-green-700 border-green-300"
+                      className="bg-green-100 text-green-700 border-green-300 flex-shrink-0"
                     >
                       <CheckCircle className="w-3 h-3 mr-1" />
                       OK
